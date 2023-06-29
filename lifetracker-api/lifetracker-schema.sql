@@ -2,11 +2,11 @@ CREATE TABLE users (
     id SERIAL PRIMARY KEY, 
     first_name TEXT NOT NULL,
     last_name TEXT NOT NULL, 
-    email TEXT NOT NULL UNIQUE CHECK (POSITION('@') IN email > 1),
+    email TEXT NOT NULL UNIQUE CHECK (POSITION('@' IN email) > 1),
     password TEXT NOT NULL, 
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP NOT NULL DEFAULT NOW()
-)
+);
 
 CREATE TABLE exercise (
     id SERIAL PRIMARY KEY,
@@ -18,7 +18,7 @@ CREATE TABLE exercise (
     user_id INTEGER NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     FOREIGN KEY (user_email) REFERENCES users(email) ON DELETE CASCADE
-)
+);
 
 CREATE TABLE nutrition (
     id SERIAL PRIMARY KEY,
@@ -31,7 +31,7 @@ CREATE TABLE nutrition (
     user_id INTEGER NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     FOREIGN KEY (user_email) REFERENCES users(email) ON DELETE CASCADE
-)
+);
 
 CREATE TABLE sleep (
     id SERIAL PRIMARY KEY,
@@ -41,4 +41,4 @@ CREATE TABLE sleep (
     user_id INTEGER NOT NULL,
     user_email TEXT NOT NULL,
     FOREIGN KEY (user_email) REFERENCES users(email) ON DELETE CASCADE
-)
+);

@@ -19,3 +19,5 @@ database.connect((err) => {
         console.log("✅ Successfully connected to the database".blue)
     }
 })
+
+module.exports = database;

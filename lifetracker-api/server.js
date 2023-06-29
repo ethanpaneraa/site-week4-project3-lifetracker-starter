@@ -3,6 +3,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const { PORT } = require('./config');
 const { NotFoundError } = require("./utils/errors"); 
+const authRoutes = require('./routes/auth');
 
 
 const app = express();
@@ -10,7 +11,11 @@ app.use(express.json());
 app.use(cors()); 
 app.use(morgan('dev'));
 
+app.use("/auth", authRoutes); 
 
+
+
+// basic error handling route
 app.use((req, res, next) => {
     return next(new NotFoundError());
 })

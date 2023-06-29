@@ -4,8 +4,8 @@ require("dotenv").config();
 require("colors"); 
 
 // select default port in .env or use 3001 (development port)
-const PORT = process.env.PORT ? Number(process.env.port) : 3001; 
-
+const PORT = process.env.PORT ? Number(process.env.PORT) : 3001; 
+console.log("PORT", PORT);
 // get secret key in .env
 const SECRET_KEY = process.env.SECRET_KEY || "CHANGE_THIS";
 
@@ -23,6 +23,13 @@ function getDatabaseUri() {
 
     return process.env.DATABASE_URL || `postgresql://${databaseUser}:${databasePassword}@${databaseHost}:${databasePort}/${databaseName}`;
 }
+
+
+console.log("LifeTracker config:".yellow);
+console.log("Port:".blue, PORT);
+console.log("Database URI:".blue, getDatabaseUri());
+console.log("LifeTracker config:".green);
+console.log("---");
 
 module.exports = {
     PORT, 

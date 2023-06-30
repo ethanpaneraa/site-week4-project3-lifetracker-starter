@@ -10,8 +10,8 @@ console.log("PORT", PORT);
 const SECRET_KEY = process.env.SECRET_KEY || "CHANGE_THIS";
 
 // set work factor for hashing user passwords in database
-const BCRYPT_WORK_FACTOR = 10;
-const BCRYPT_SALT_ROUNDS = 10;
+const BCRYPT_WORK_FACTOR = 13;
+const BCRYPT_SALT_ROUNDS = 13;
 
 // get database uri from .env
 function getDatabaseUri() {

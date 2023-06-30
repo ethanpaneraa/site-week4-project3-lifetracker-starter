@@ -34,7 +34,7 @@ router.post("/register", async (req, res, next) => {
     console.log(req.body);
     //Make a new token for the registered user
     // const token = createUserJwt(user);
-    console.log(token);
+    // console.log(token);
     return res.status(201).json({ user: user});
   } catch (err) {
     next(err);

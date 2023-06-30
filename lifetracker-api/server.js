@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const { PORT } = require('./config');
 const { NotFoundError } = require("./utils/errors"); 
 const authRoutes = require('./routes/auth');
+const exerciseRoutes = require('./routes/exercise');
 
 
 const app = express();
@@ -13,6 +14,7 @@ app.use(morgan('dev'));
 
 app.use("/auth", authRoutes); 
 
+app.use("/exercise", exerciseRoutes);
 
 
 // basic error handling route
@@ -28,7 +30,7 @@ app.use((err, req, res, next) => {
     const message = err.message;
     return res.status(status).json({ error: { message, status }})
 })
-// console.log("PORT", PORT);
+
 app.listen(PORT, () => {
     console.log(`🚀Server running on http://localhost:${PORT}`);
 })

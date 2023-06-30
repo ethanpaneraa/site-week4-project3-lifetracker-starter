@@ -5,6 +5,7 @@ const { PORT } = require('./config');
 const { NotFoundError } = require("./utils/errors"); 
 const authRoutes = require('./routes/auth');
 const exerciseRoutes = require('./routes/exercise');
+const nutritionRoutes = require('./routes/nutrition');
 
 
 const app = express();
@@ -16,6 +17,7 @@ app.use("/auth", authRoutes);
 
 app.use("/exercise", exerciseRoutes);
 
+app.use("/nutrition", nutritionRoutes); 
 
 // basic error handling route
 app.use((req, res, next) => {

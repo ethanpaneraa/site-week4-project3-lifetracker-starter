@@ -1,11 +1,10 @@
 const security = require("../middleware/security");
 const ExerciseModel = require("../models/exercise"); 
 const UserModel = require("../models/user"); 
-// const ExerciseModel = require("../models/exercise"); 
 const express = require("express");
 const router = express.Router();
 
-router.post("/create", (req, res, next) => {
+router.post("/create", security.requireAuthenticatedUser,  (req, res, next) => {
 
     try {
     const exerciseData = req.body;  
@@ -17,7 +16,7 @@ router.post("/create", (req, res, next) => {
     }
 })
 
-router.get("/:userID", async (req, res, next) => {
+router.get("/:userID", security.requireAuthenticatedUser,  async (req, res, next) => {
     try {
         const allExercises = await ExerciseModel.fetchAllExercisesByUserID(req.params.userID);
         return res.status(200).json({ allExercises });

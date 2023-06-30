@@ -24,7 +24,7 @@ class User {
         }
 
         const query = `SELECT * FROM users WHERE email = $1`;
-        const result = await db.query(query, [email.toLowerCase()]);
+        const result = await db.query(query, [email]);
 
         // pick first result
         const user = result.rows[0];
@@ -33,7 +33,6 @@ class User {
     }
 
     static async login(credentials) {
-        
         // user should submit their email and password
         // if any of these fields are missing, throw a 400 error
         const requiredFields = ["email", "password"];
@@ -45,6 +44,7 @@ class User {
 
         // lookup the user in the db by email
         const user = await User.fetchUserByEmail(credentials.email);
+
         // if a user is found, compare the submitted password
         // with the password in the db
         // if there is a match, return the user

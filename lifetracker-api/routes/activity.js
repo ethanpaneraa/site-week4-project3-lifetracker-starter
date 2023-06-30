@@ -3,7 +3,7 @@ const security = require("../middleware/security");
 const express = require("express"); 
 const router = express.Router(); 
 
-router.get("/", async (req, res, next) => {
+router.get("/", security.requireAuthenticatedUser, async (req, res, next) => {
 
     try {
         const { userID } = res.locals.user; 

@@ -1,8 +1,9 @@
 const NutritionModel = require("../models/nutrition");
+const security = require("../middleware/security");
 const express = require("express");
 const router = express.Router();
 
-router.post("/create", (req, res, next) => {
+router.post("/create", security.requireAuthenticatedUser, (req, res, next) => {
     try {
         const nutritionData = req.body;
         const userID = req.body.userID;
@@ -13,7 +14,7 @@ router.post("/create", (req, res, next) => {
     }
 })
 
-router.get("/:userID", async (req, res, next) => {
+router.get("/:userID", security.requireAuthenticatedUser,  async (req, res, next) => {
     try {
         console.log("params", req.params); 
         const nutrition = await NutritionModel.fetchAllNutritionEntriesByUserID(req.params.userID);

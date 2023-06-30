@@ -6,6 +6,7 @@ const { NotFoundError } = require("./utils/errors");
 const authRoutes = require('./routes/auth');
 const exerciseRoutes = require('./routes/exercise');
 const nutritionRoutes = require('./routes/nutrition');
+const sleepRoutes = require('./routes/sleep');
 
 
 const app = express();
@@ -18,6 +19,8 @@ app.use("/auth", authRoutes);
 app.use("/exercise", exerciseRoutes);
 
 app.use("/nutrition", nutritionRoutes); 
+
+app.use("/sleep", sleepRoutes);
 
 // basic error handling route
 app.use((req, res, next) => {

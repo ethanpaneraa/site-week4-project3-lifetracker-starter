@@ -21,15 +21,11 @@ const RegistrationForm = ({ isUserLoggedIn, registrationError, setUser, setIsUse
             ...userFormData,
             [name]: value,
         });
-
-        console.log("userFormData", userFormData);
     };
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
-        const status = handleUserRegistration(userFormData);
-        console.log("status", status);
-        console.log("isUserLoggedIn", isUserLoggedIn);
+        handleUserRegistration(userFormData);
         if (isUserLoggedIn) {
             setUserFormData({
                 firstName: "",
@@ -38,7 +34,6 @@ const RegistrationForm = ({ isUserLoggedIn, registrationError, setUser, setIsUse
                 password: "",
                 username: "",
             });
-            // navigate("/activity");
         }
     }
 

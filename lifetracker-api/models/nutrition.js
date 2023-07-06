@@ -26,13 +26,16 @@ class Nutrition {
         const requiredFields = [
             "calories",
             "quantity", 
-            "image", 
-            "category", 
-            "name"
+            "imageUrl", 
+            "nutritionCategory", 
+            "nutritionName"
         ];
 
+        const actualFields = nutritionData.nutritionInfo
+        console.log("nutritionData", nutritionData.nutritionInfo)
+
         requiredFields.forEach((field) => {
-            if (!nutritionData.hasOwnProperty(field)) {
+            if (!actualFields.hasOwnProperty(field)) {
                 throw new BadRequestError(`Required field - ${field} - missing from request body.`)
             };
         });
@@ -50,11 +53,11 @@ class Nutrition {
             RETURNING id, calories, quantity, image, category, name, user_id;
             `, 
             [
-                nutritionData.calories,
-                nutritionData.quantity,
-                nutritionData.image,
-                nutritionData.category,
-                nutritionData.name,
+                actualFields.calories,
+                actualFields.quantity,
+                actualFields.imageUrl,
+                actualFields.nutritionCategory,
+                actualFields.nutritionName,
                 userID,
                 userEmail.email
             ]
@@ -64,7 +67,7 @@ class Nutrition {
     }
 
     static async fetchAllNutritionEntriesByUserID(userID) {
-            
+            console.log("userID", userID);
             if (!userID) {
                 throw new BadRequestError(`Required field - userID - missing from request body.`); 
             }

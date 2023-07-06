@@ -13,6 +13,7 @@ import ExercisePage from '../ExercisePage/ExercisePage';
 import SleepPage from '../SleepPage/SleepPage';
 import UnauthorizedPage from '../UnauthorizedPage/UnauthorizedPage';
 import PageNotFound from '../PageNotFound/PageNotFound';
+import NutritionForm from '../NutritionForm/NutritionForm';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 function App() {
 
@@ -31,7 +32,6 @@ function App() {
     };
 
     const token = localStorage.getItem('token');
-    console.log("token", token)
     if (token) {
       ApiClient.setToken(token);
       checkIfUserIsLoggedIn();
@@ -64,6 +64,7 @@ function App() {
                   registrationError={registrationError} />} /> 
               <Route path="/activity" element={!isUserLoggedIn ? (<UnauthorizedPage />): <ActivityPage />} />
               <Route path="/nutrition" element={!isUserLoggedIn ? (<UnauthorizedPage />) : (<NutritionPage user={user}/>)}  />
+              <Route path="/nutrition/create" element={!isUserLoggedIn ? (<UnauthorizedPage />) : (<NutritionForm user={user} />)}  />
               <Route path="/sleep" element={!isUserLoggedIn ? (<UnauthorizedPage />) : (<SleepPage />)} />
               <Route path="/exercise" element={!isUserLoggedIn ? (<UnauthorizedPage />) : (<ExercisePage />)} />
               <Route path="/" element={<Home />} />

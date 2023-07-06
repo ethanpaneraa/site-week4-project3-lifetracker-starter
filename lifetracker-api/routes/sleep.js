@@ -3,7 +3,7 @@ const SleepModel = require("../models/sleep");
 const express = require("express");
 const router = express.Router();
 
-router.post("/create", security.requireAuthenticatedUser,  (req, res, next) => {
+router.post("/create", (req, res, next) => {
     try {
         const sleepData = req.body;
         const userID = req.body.userID;
@@ -15,7 +15,7 @@ router.post("/create", security.requireAuthenticatedUser,  (req, res, next) => {
     }
 })
 
-router.get("/:userID", security.requireAuthenticatedUser, async (req, res, next) => {
+router.get("/:userID", async (req, res, next) => {
     try {
 
         const sleep = await SleepModel.fetchAllSleepByUserID(req.params.userID);

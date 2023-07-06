@@ -1,9 +1,12 @@
 import React from "react";
 import { useState } from "react";
 import "./RegistrationForm.css";
+import ApiClient from "../../services/ApiClient";
+import { useNavigate } from "react-router-dom";  
 
-const RegistrationForm = ({ handleUserRegistration }) => {
+const RegistrationForm = ({ isUserLoggedIn, registrationError, setUser, setIsUserLoggedIn, setRegistrationError }) => {
 
+    const navigate = useNavigate();
     const [userFormData, setUserFormData] = useState({
         firstName: "",
         lastName: "",
@@ -26,9 +29,33 @@ const RegistrationForm = ({ handleUserRegistration }) => {
         event.preventDefault();
         const status = handleUserRegistration(userFormData);
         console.log("status", status);
+        console.log("isUserLoggedIn", isUserLoggedIn);
+        if (isUserLoggedIn) {
+            setUserFormData({
+                firstName: "",
+                lastName: "",
+                email: "",
+                password: "",
+                username: "",
+            });
+            // navigate("/activity");
+        }
     }
 
-    
+    const handleUserRegistration = async (userInfo) => {
+        const response = await ApiClient.registerUser(userInfo);
+
+        if (response.data?.user) {
+            setIsUserLoggedIn(true);
+            setUser(response.data.user);
+            ApiClient.setToken(response.data.token);
+            setRegistrationError(null);
+            navigate("/activity");
+        } else {
+            setRegistrationError(response);
+            console.log("registrationError:", response)
+        }
+    };
 
     return (
         <div>
@@ -76,6 +103,8 @@ const RegistrationForm = ({ handleUserRegistration }) => {
                 />
                 <button type="submit">Register</button>
             </form>
+
+            {registrationError && <p>{registrationError}</p>}
         </div>
     );
 };

@@ -1,10 +1,10 @@
 import React from "react";
 import { useState} from "react";
-import "./LoginForm.css";
+import ApiClient from "../../services/ApiClient";
 import { useNavigate } from "react-router-dom";
+import "./LoginForm.css";
 
-const LoginForm = ({ handleUserLogin, loginError, isUserLoggedIn }) => {
-
+const LoginForm = ({ loginError, setLoginError, isUserLoggedIn, setIsUserLoggedIn, setUser, user }) => {;
     const navigate = useNavigate();
     const [loginFormData, setLoginFormData] = useState({
         email: "",
@@ -21,8 +21,22 @@ const LoginForm = ({ handleUserLogin, loginError, isUserLoggedIn }) => {
     const handleLoginFormSubmit = (event) => {
         event.preventDefault();
         handleUserLogin(loginFormData);
-        navigate("/activity");
     }
+
+    const handleUserLogin = async (userInfo) => {
+
+        const { data, error } = await ApiClient.loginUser(userInfo);
+    
+        if (data?.user) {
+            setIsUserLoggedIn(true);
+            setUser(data.user);
+            ApiClient.setToken(data.token);
+            setLoginError("")
+            navigate("/activity"); 
+        } else {
+            setLoginError("Invalid email or password");
+        }
+    }; 
 
     return (
         <div>

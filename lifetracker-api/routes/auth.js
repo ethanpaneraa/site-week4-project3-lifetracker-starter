@@ -20,10 +20,8 @@ router.post("/register", async (req, res, next) => {
   try {
     //Take request body and attempt to make a new user
     const user = await User.register({ ...req.body, isAdmin: false });
-    console.log(req.body);
     //Make a new token for the registered user
     const token = createUserJwt(user);
-    console.log("token", token);
     return res.status(201).json({ user: user, token:token});
   } catch (err) {
     next(err);
@@ -36,7 +34,7 @@ router.get("/me", security.requireAuthenticatedUser, async (req, res, next) => {
 
     const { email } = res.locals.user;
     const user = await User.fetchUserByEmail(email);
-    const publicUser = User.makePublicUser(user);
+    const publicUser = User.createPublicUser(user);
     return res.status(200).json({ user: publicUser });
 
   } catch (error) {

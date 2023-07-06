@@ -51,16 +51,6 @@ class ApiClient {
     });
   }
 
-
-  // async registerUser(credentials) {
-  //   return await this.request({
-  //     endpoint: "auth/register",
-  //     method: "POST",
-  //     data: credentials,
-  //   });
-  // }
-
-  
   fetchUserFromToken = async () => {
     return await this.request({
       endpoint: "auth/me",

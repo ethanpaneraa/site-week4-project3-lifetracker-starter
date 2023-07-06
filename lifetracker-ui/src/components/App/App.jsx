@@ -10,67 +10,51 @@ import ActivityPage from '../ActivityPage/ActivityPage';
 import NutritionPage from '../NutritionPage/NutritionPage';
 import ExercisePage from '../ExercisePage/ExercisePage';
 import SleepPage from '../SleepPage/SleepPage';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-// import { useNavigate } from 'react-router-dom';
+import UnauthorizedPage from '../UnauthorizedPage/UnauthorizedPage';
+import PageNotFound from '../PageNotFound/PageNotFound';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 function App() {
 
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false); 
   const [registrationError, setRegistrationError] = useState(null);
   const [loginError, setLoginError] = useState(null);
   const [user, setUser] = useState({});
-  // const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const checkIfUserIsLoggedIn = async () => {
-  //     const {userData, error} = await ApiClient.fetchUserFromToken();
-  //     if (userData) {
-  //       setIsUserLoggedIn(true);
-  //       setUser(userData);
-  //     }
-  //   };
+  useEffect(() => {
+    const checkIfUserIsLoggedIn = async () => {
+      const {data, error} = await ApiClient.fetchUserFromToken();
+      if (data) {
+        setIsUserLoggedIn(true);
+        setUser(data.user);
+      }
+    };
 
-  //   const token = localStorage.getItem('token');
-  //   if (token) {
-  //     ApiClient.setToken(token);
-  //     checkIfUserIsLoggedIn();
-  //   }
-  // }, []); 
+    const token = localStorage.getItem('token');
+    console.log("token", token)
+    if (token) {
+      ApiClient.setToken(token);
+      checkIfUserIsLoggedIn();
+    }
+  }, []); 
 
   const handleUserLogin = async (userInfo) => {
 
-    const userData = await ApiClient.loginUser(userInfo);
+    const { data, error } = await ApiClient.loginUser(userInfo);
+    console.log("data:", data)
+    console.log("error:", error)
 
-    if (userData) {
+    if (data?.user) {
       setIsUserLoggedIn(true);
-      setUser(userData);
+      setUser(data.user);
+      ApiClient.setToken(data.token);
+      setLoginError("")
     } else {
-      setLoginError("Invalid username or password");
+      setLoginError(error);
     }
   }; 
 
-  // const handleUserRegistration = async (userInfo) => {
-  //   console.log("im here"); 
-  //   console.log("userInfo", userInfo)
-  //   const {data, error} = await ApiClient.registerUser(userInfo); 
-  //   // const { user, token } = userData;
-  //   // console.log("user", user);
-  //   // console.log("token", token);
-  //   if (data?.user) {
-  //     setIsUserLoggedIn(true);
-  //     // setUser(userData);  
-  //     ApiClient.setToken(data.token);
-  //     setRegistrationError(null); 
-  //   } else {
-  //     setRegistrationError(error.message);
-  //     console.log("AQUI"); 
-  //   }
-  // }
-
   const handleUserRegistration = async (userInfo) => {
-    console.log("im here");
-    console.log("userInfo", userInfo);
     const response = await ApiClient.registerUser(userInfo);
-    console.log("response", response);
   
     if (response.data?.user) {
       setIsUserLoggedIn(true);
@@ -78,23 +62,29 @@ function App() {
       setRegistrationError(null);
     } else {
       setRegistrationError(response.error.message);
-      console.log("AQUI");
     }
   };
+
+  const handleLogoutUser = () => {
+    setIsUserLoggedIn(false);
+    setUser({});
+    localStorage.removeItem('token');
+  }
 
   return (
     <div>
       <Router>
-        <NavBar />
+        <NavBar isUserLoggedIn={isUserLoggedIn} handleLogoutUser={handleLogoutUser} />
         <main>
           <div>
             <Routes>
-              <Route path="/login" element={<LoginForm handleUserLogin={handleUserLogin} />} />
+              <Route path="/login" element={!isUserLoggedIn ? (<LoginForm handleUserLogin={handleUserLogin} loginError={loginError} isUserLoggedIn={isUserLoggedIn}/>) : (<></>)} />
               <Route path="/register" element={<RegistrationForm handleUserRegistration={handleUserRegistration} />} /> 
-              <Route path="/activity" element={<ActivityPage />} />
-              <Route path="/nutrition" element={<NutritionPage />}  />
-              <Route path="/sleep" element={<SleepPage />} />
-              <Route path="/exercise" element={<ExercisePage />} />
+              <Route path="/activity" element={!isUserLoggedIn ? (<UnauthorizedPage />): <ActivityPage />} />
+              <Route path="/nutrition" element={!isUserLoggedIn ? (<UnauthorizedPage />) : (<NutritionPage />)}  />
+              <Route path="/sleep" element={!isUserLoggedIn ? (<UnauthorizedPage />) : (<SleepPage />)} />
+              <Route path="/exercise" element={!isUserLoggedIn ? (<UnauthorizedPage />) : (<ExercisePage />)} />
+              <Route path="*" element={<PageNotFound />} />
             </Routes>
           </div>
         </main>

@@ -1,8 +1,18 @@
 import React from "react";
 import "./NavBar.css";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const NavBar = ({ isUserLoggedIn, handleLogoutUser }) => {
+const NavBar = ({ isUserLoggedIn, setUser, setIsUserLoggedIn }) => {
+    const navigate = useNavigate();
+
+    const handleLogoutUser = () => {    
+        setIsUserLoggedIn(false);
+        setUser({});
+        localStorage.removeItem('token');
+        navigate("localhost:5173/");
+      }
+
 
     return (
         <div>

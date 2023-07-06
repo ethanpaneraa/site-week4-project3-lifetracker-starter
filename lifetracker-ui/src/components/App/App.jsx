@@ -65,16 +65,11 @@ function App() {
     }
   };
 
-  const handleLogoutUser = () => {
-    setIsUserLoggedIn(false);
-    setUser({});
-    localStorage.removeItem('token');
-  }
 
   return (
     <div>
       <Router>
-        <NavBar isUserLoggedIn={isUserLoggedIn} handleLogoutUser={handleLogoutUser} />
+        <NavBar isUserLoggedIn={isUserLoggedIn} setUser={setUser} setIsUserLoggedIn={setIsUserLoggedIn} />
         <main>
           <div>
             <Routes>

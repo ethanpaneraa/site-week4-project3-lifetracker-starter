@@ -21,6 +21,7 @@ const LoginForm = ({ handleUserLogin, loginError, isUserLoggedIn }) => {
     const handleLoginFormSubmit = (event) => {
         event.preventDefault();
         handleUserLogin(loginFormData);
+        navigate("/activity");
     }
 
     return (

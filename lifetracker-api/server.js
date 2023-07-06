@@ -12,10 +12,9 @@ const activityRoutes = require('./routes/activity');
 
 
 const app = express();
+app.use(cors());
+app.use(morgan("tiny"));
 app.use(express.json());
-app.use(cors()); 
-app.use(morgan('dev'));
-
 //middleware that checks if JWT token exists and verifies it if it does exist.
 //if they exist, it extracts the user from the jwt token
 //In all the future routes, this helps to know if the request is authenticated or not.

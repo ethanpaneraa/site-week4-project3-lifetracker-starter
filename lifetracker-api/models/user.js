@@ -18,19 +18,21 @@ class User {
         }
     }
 
-    static async fetchUserByEmail(email) { 
-        if (!email) {
-            throw new BadRequestError("No email provided");
-        }
+static async fetchUserByEmail(email) {
+  if (!email) {
+    throw new BadRequestError("Email is required");
+  }
 
-        const query = `SELECT * FROM users WHERE email = $1`;
-        const result = await db.query(query, [email]);
+  const query = `SELECT * FROM users WHERE email = $1`;
+  const result = await db.query(query, [email]);
 
-        // pick first result
-        const user = result.rows[0];
+  if (result.rows.length === 0) {
+    return null; // Return null when no user is found
+  }
 
-        return user;
-    }
+  const user = result.rows[0];
+  return user;
+}
 
     static async login(credentials) {
         // user should submit their email and password

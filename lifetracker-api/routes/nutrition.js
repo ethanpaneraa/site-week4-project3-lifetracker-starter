@@ -7,8 +7,8 @@ router.post("/create", (req, res, next) => {
     try {
         const nutritionData = req.body;
         const userID = req.body.userID;
-        NutritionModel.createNutrition(nutritionData, userID);
-        return res.status(201).json(req.body);
+        const newNutritionInfo = NutritionModel.createNutrition(nutritionData, userID);
+        return res.status(201).json(newNutritionInfo);
     } catch (error) {
         next(error);
     }

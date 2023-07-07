@@ -61,8 +61,9 @@ class Nutrition {
                 userID,
                 userEmail.email
             ]
-        );
-
+            );
+        
+        console.log("results", results.rows[0]); 
         return results.rows[0];
     }
 

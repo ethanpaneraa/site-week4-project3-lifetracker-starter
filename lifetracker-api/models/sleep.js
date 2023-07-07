@@ -37,19 +37,32 @@ class Sleep {
 
         const userEmail = await Sleep.fetchUserEmail(userID);
 
+        // Calculate the sum of the sleep duration
+        // The format of the start_time and end_time is something like 2023-01-01T15:03
+        // So, how do I actually calculate the duration of the sleep?
+        // I can use the Date.parse() method to convert the start_time and end_time to milliseconds
+        let sleepDuration = 0;
+        const startTime = Date.parse(sleep.start_time);
+        const endTime = Date.parse(sleep.end_time);
+        sleepDuration = endTime - startTime;
+        // convert sleep duration to minutes
+        sleepDuration = sleepDuration / 60000;
         const results = await db.query(
             `
-            INSERT INTO sleep (start_time, end_time, user_id, user_email)
-            VALUES ($1, $2, $3, $4)
+            INSERT INTO sleep (start_time, end_time, user_id, user_email, duration)
+            VALUES ($1, $2, $3, $4, $5)
             RETURNING id, start_time, end_time, user_id;
             `, 
             [
                 sleep.start_time,
                 sleep.end_time,
                 userID,
-                userEmail.email
+                userEmail.email,
+                sleepDuration, 
             ]
         ); 
+
+
 
         return results.rows[0];
     }

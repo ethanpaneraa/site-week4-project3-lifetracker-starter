@@ -29,18 +29,33 @@ class Activity {
         const results = await db.query(sqlQuery, [userID]);
 
         const sqlQuery2 =  `
-        SELECT SUM(calories)
-               AS calories,
+        SELECT SUM(duration)
+               AS duration,
                TO_CHAR(created_at :: DATE, 'dd/mm/yyyy') AS "createdAt"
-               FROM nutrition
-               WHERE user_email=$1
+               FROM exercise
+               WHERE user_id=$1
                GROUP BY "createdAt"
-               LIMIT 6;`;
+               LIMIT 6`;
         const sqlQuery2Results = await db.query(sqlQuery2, [userID]);
+
+        // sqlQuery3 is going to get the least amount of sleep data for a user from the sleep table
+        const sqlQuery3 = `
+        SELECT SUM(duration)
+                AS duration,
+                TO_CHAR(created_at :: DATE, 'dd/mm/yyyy') AS "createdAt"
+                FROM sleep
+                WHERE user_id=$1
+                GROUP BY "createdAt"
+                LIMIT 6`; 
+        
+        const sqlQuery3Results = await db.query(sqlQuery3, [userID]);
+
+            
 
         return {
             avgCaloriesPerCategory: results.rows[0] || 0,
-            totalCaloriesPerDay: sqlQuery2Results.rows || 0
+            totalTimeExercise: sqlQuery2Results.rows[0] || 0,
+            totalTimeSleep: sqlQuery3Results.rows[0] || 0
         }
 
     }

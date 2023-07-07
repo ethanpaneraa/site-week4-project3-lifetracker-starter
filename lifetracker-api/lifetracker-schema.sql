@@ -41,5 +41,6 @@ CREATE TABLE sleep (
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     user_id INTEGER NOT NULL,
     user_email TEXT NOT NULL,
+    duration INTEGER NOT NULL,
     FOREIGN KEY (user_email) REFERENCES users(email) ON DELETE CASCADE
 );

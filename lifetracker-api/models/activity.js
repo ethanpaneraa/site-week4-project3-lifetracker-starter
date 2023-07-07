@@ -2,12 +2,32 @@ const db = require("../db");
 
 class Activity {
     
-    static async fetchUserSummaryStats(userID) {
+    // fetchUserID is going to get the id of the email from the users tables based on the passed in userEmail
+    static async fetchUserID(userEmail) {
+        
+        const results = await db.query(
+            `
+            SELECT id FROM users
+            WHERE email = $1`, 
+            [
+                userEmail
+            ]
+        ); 
 
+        console.log("RESULTS", results.rows[0].id)
+        return results.rows[0];
+    }
+
+
+    static async fetchUserSummaryStats(userEmail) {
+
+        const userID = await Activity.fetchUserID(userEmail);
+        console.log("IM HERE"); 
+        console.log("USER ID IN ACTIVITY", userID)
         const sqlQuery = 
         `SELECT AVG(calories) AS calories, category FROM nutrition WHERE user_id=$1 GROUP BY category LIMIT 6;`;
 
-        const results = await db.query(sqlQuery, [userID]);
+        const results = await db.query(sqlQuery, [userID.id]);
 
         const sqlQuery2 =  `
         SELECT SUM(calories)
@@ -17,7 +37,7 @@ class Activity {
                WHERE user_email=$1
                GROUP BY "createdAt"
                LIMIT 6;`;
-        const sqlQuery2Results = await db.query(sqlQuery2, [userID]);
+        const sqlQuery2Results = await db.query(sqlQuery2, [userID.id]);
 
         return {
             avgCaloriesPerCategory: results.rows[0] || 0,

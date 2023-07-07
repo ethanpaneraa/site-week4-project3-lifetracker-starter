@@ -21,7 +21,8 @@ class Exercise {
     }
 
     static async createExercise(exercise, userID) {
-
+        exercise = exercise.exerciseInfo; 
+        console.log("exercise", exercise);
         const requiredFields = ["name", "category", "duration", "intensity"];
 
         requiredFields.forEach((field) => {

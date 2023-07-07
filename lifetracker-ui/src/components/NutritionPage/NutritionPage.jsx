@@ -6,15 +6,14 @@ import { Link } from "react-router-dom";
 import NutritionCard from "../NutritionCard/NutritionCard";
 import "./NutritionPage.css";
 
-const NutritionPage = ({ user, setUser, isUserLoggedIn, setIsUserLoggedIn }) => {
+const NutritionPage = ({ user }) => {
 
-    const [nutritionData, setNuritionData] = useState([]);
-    console.log("user.id", user.id)
+    const [nutritionData, setNutritionData] = useState([]);
     useEffect(() => {
         axios.get(`http://localhost:3001/nutrition/${user.id}`)
         .then((response) => {
             console.log("response.data:", response.data);
-            setNuritionData(response.data.nutrition);
+            setNutritionData(response.data.nutrition);
             console.log("nutritionData:", nutritionData);
         })
         .catch((error) => {
@@ -26,19 +25,16 @@ const NutritionPage = ({ user, setUser, isUserLoggedIn, setIsUserLoggedIn }) => 
     return (
         <div>
             NutritionPage
-            <Link to="/nutrition/create">Nutrition</Link>
-            {nutritionData !== [] && nutritionData.map((nutrition) => {
-                return (
-                    <NutritionCard 
-                        key={nutrition.id}
-                        nutrition={nutrition}
-                        user={user}
-                        setUser={setUser}
-                        isUserLoggedIn={isUserLoggedIn}
-                        setIsUserLoggedIn={setIsUserLoggedIn}
-                    />
-                )
-            })}
+            <Link to="/nutrition/create">Create Nutrition Item</Link>
+            {nutritionData ? (
+                nutritionData.map((nutrition) => {
+                    return (
+                        <NutritionCard 
+                            key={nutrition.id}
+                            nutrition={nutrition}
+                        />
+                    )
+                })) : (<h2>No Nutrition Data</h2>)}
         </div>
     );
 };

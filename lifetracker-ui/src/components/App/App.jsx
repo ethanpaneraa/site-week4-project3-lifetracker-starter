@@ -14,6 +14,8 @@ import SleepPage from '../SleepPage/SleepPage';
 import UnauthorizedPage from '../UnauthorizedPage/UnauthorizedPage';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import NutritionForm from '../NutritionForm/NutritionForm';
+import ExerciseForm from '../ExerciseForm/ExerciseForm';
+import SleepForm from '../SleepForm/SleepForm';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 function App() {
 
@@ -65,8 +67,10 @@ function App() {
               <Route path="/activity" element={!isUserLoggedIn ? (<UnauthorizedPage />): <ActivityPage />} />
               <Route path="/nutrition" element={!isUserLoggedIn ? (<UnauthorizedPage />) : (<NutritionPage user={user}/>)}  />
               <Route path="/nutrition/create" element={!isUserLoggedIn ? (<UnauthorizedPage />) : (<NutritionForm user={user} />)}  />
-              <Route path="/sleep" element={!isUserLoggedIn ? (<UnauthorizedPage />) : (<SleepPage />)} />
-              <Route path="/exercise" element={!isUserLoggedIn ? (<UnauthorizedPage />) : (<ExercisePage />)} />
+              <Route path="/sleep" element={!isUserLoggedIn ? (<UnauthorizedPage />) : (<SleepPage user={user} />)} />
+              <Route path="/sleep/create" element={!isUserLoggedIn ? (<UnauthorizedPage />) : (<SleepForm user={user} />)}  />
+              <Route path="/exercise" element={!isUserLoggedIn ? (<UnauthorizedPage />) : (<ExercisePage user={user} />)} />
+              <Route path="/exercise/create" element={!isUserLoggedIn ? (<UnauthorizedPage />) : (<ExerciseForm user={user} />)}  />
               <Route path="/" element={<Home />} />
               <Route path="*" element={<PageNotFound />} />
             </Routes>

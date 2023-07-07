@@ -19,6 +19,8 @@ const NutritionForm = ({ user }) => {
             ...prevNewNutritionData,
             [name]: value,
         }));
+
+        console.log("newNutritionData:", newNutritionData)
     }
 
 
@@ -62,13 +64,15 @@ const NutritionForm = ({ user }) => {
                     onChange={handleNewNutritionInputChange}
                 />
                 <label htmlFor="category">Category:</label>
-                <input
-                    type="text"
-                    name="category"
-                    id="category"
-                    value={newNutritionData.category}
-                    onChange={handleNewNutritionInputChange}
-                />
+                <select onChange={handleNewNutritionInputChange}>
+                    <option value="default" selected disabled hidden>Select a category</option>
+                    <option value="Fruit" id="category">Fruit</option>
+                    <option value="Vegetable">Vegetable</option>
+                    <option value="Grain">Grain</option>
+                    <option value="Protein">Protein</option>
+                    <option value="Dairy">Dairy</option>
+                    <option value="Fat">Fat</option>
+                </select>
                 <label htmlFor="calories">Calories:</label>
                 <input
                     type="number"

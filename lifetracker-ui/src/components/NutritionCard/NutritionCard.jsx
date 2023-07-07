@@ -1,6 +1,8 @@
 import React from "react";
 
-const NutritionCard = ({ nutritionData }) => {
+const NutritionCard = ({ nutrition }) => {
+
+    console.log("nutrition in NutritionCard:", nutrition);
 
     return (
         <div>

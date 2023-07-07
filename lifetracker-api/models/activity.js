@@ -19,15 +19,14 @@ class Activity {
     }
 
 
-    static async fetchUserSummaryStats(userEmail) {
+    static async fetchUserSummaryStats(userID) {
 
-        const userID = await Activity.fetchUserID(userEmail);
         console.log("IM HERE"); 
         console.log("USER ID IN ACTIVITY", userID)
         const sqlQuery = 
         `SELECT AVG(calories) AS calories, category FROM nutrition WHERE user_id=$1 GROUP BY category LIMIT 6;`;
 
-        const results = await db.query(sqlQuery, [userID.id]);
+        const results = await db.query(sqlQuery, [userID]);
 
         const sqlQuery2 =  `
         SELECT SUM(calories)
@@ -37,7 +36,7 @@ class Activity {
                WHERE user_email=$1
                GROUP BY "createdAt"
                LIMIT 6;`;
-        const sqlQuery2Results = await db.query(sqlQuery2, [userID.id]);
+        const sqlQuery2Results = await db.query(sqlQuery2, [userID]);
 
         return {
             avgCaloriesPerCategory: results.rows[0] || 0,

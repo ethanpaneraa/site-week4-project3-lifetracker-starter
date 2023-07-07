@@ -67,7 +67,7 @@ function App() {
                     setIsUserLoggedIn={setIsUserLoggedIn}
                     setRegistrationError={setRegistrationError}
                     registrationError={registrationError} />} /> 
-                <Route path="/activity" element={!isUserLoggedIn ? (<UnauthorizedPage />): <ActivityPage />} />
+                <Route path="/activity" element={!isUserLoggedIn ? (<UnauthorizedPage />): <ActivityPage user={user} />} />
                 <Route path="/nutrition" element={!isUserLoggedIn ? (<UnauthorizedPage />) : (<NutritionPage user={user}/>)}  />
                 <Route path="/nutrition/create" element={!isUserLoggedIn ? (<UnauthorizedPage />) : (<NutritionForm user={user} />)}  />
                 <Route path="/sleep" element={!isUserLoggedIn ? (<UnauthorizedPage />) : (<SleepPage user={user} />)} />

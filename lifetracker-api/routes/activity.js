@@ -1,13 +1,12 @@
 const ActivityModel = require("../models/activity"); 
-const security = require("../middleware/security");
 const express = require("express"); 
 const router = express.Router(); 
 
-router.get("/", security.requireAuthenticatedUser, async (req, res, next) => {
+router.get("/:userID", async (req, res, next) => {
+
 
     try {
-        const { email } = res.locals.user
-        const result = await ActivityModel.fetchUserSummaryStats(email);
+        const result = await ActivityModel.fetchUserSummaryStats(req.params.userID);
 
         return res.status(200).json({ activities: result });
     } catch (error) {

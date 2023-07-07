@@ -105,30 +105,26 @@ const NavBar = ({ isUserLoggedIn, setUser, setIsUserLoggedIn }) => {
                     <Flex alignItems={'center'}>
                     {!isUserLoggedIn ? (
                     <HStack>
-                        <Link 
-                            as={RouteLink} 
-                            to="/register" 
-                            px={2} 
-                            py={1} 
-                            rounded={"md"} 
-                            _hover={
-                            {textDecoration: "none",
-                            bg: useColorModeValue("gray.200", "gray.700")}}
-                            >
+                        <RouteLink to="/register">
+                        <Button
+                            rounded={'full'}
+                            px={6}
+                            colorScheme={'primary'}
+                            bg={'primary.500'}
+                            _hover={{ bg: 'primary.600' }}>
                             Register
-                        </Link>
-                        <Link 
-                            as={RouteLink} 
-                            to="/login" 
-                            px={2} 
-                            py={1} 
-                            rounded={"md"} 
-                            _hover={
-                            {textDecoration: "none",
-                            bg: useColorModeValue("gray.200", "gray.700")}}
-                            >
+                        </Button>
+                        </RouteLink>
+                        <RouteLink to="/login">
+                        <Button
+                            rounded={'full'}
+                            px={6}
+                            colorScheme={'primary'}
+                            bg={'primary.500'}
+                            _hover={{ bg: 'primary.600' }}>
                             Login
-                        </Link>
+                        </Button>
+                        </RouteLink>
                 </HStack>
 
                 ) : 

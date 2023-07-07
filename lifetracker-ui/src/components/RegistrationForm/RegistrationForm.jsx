@@ -41,6 +41,8 @@ const RegistrationForm = ({ isUserLoggedIn, registrationError, setUser, setIsUse
             ...userFormData,
             [name]: value,
         });
+
+        console.log(userFormData)
     };
 
     const handleFormSubmit = (event) => {
@@ -92,56 +94,88 @@ const RegistrationForm = ({ isUserLoggedIn, registrationError, setUser, setIsUse
           boxShadow={'lg'}
           p={8}>
           <Stack spacing={4}>
-            <HStack>
-              <Box>
-                <FormControl id="firstName" isRequired>
-                  <FormLabel>First Name</FormLabel>
-                  <Input type="text" />
+            <form onSubmit={handleFormSubmit}>
+                <HStack>
+                <Box>
+                    <FormControl id="firstName" isRequired>
+                    <FormLabel>First Name</FormLabel>
+                    <Input 
+                        type="text" 
+                        name="firstName"
+                        value={userFormData.firstName}
+                        onChange={handleInputChange}
+                        />
+                    </FormControl>
+                </Box>
+                <Box>
+                    <FormControl id="lastName" isRequired>
+                    <FormLabel>Last Name</FormLabel>
+                    <Input 
+                        type="text" 
+                        name="lastName"
+                        value={userFormData.lastName}
+                        onChange={handleInputChange}
+                        />
+                    </FormControl>
+                </Box>
+                </HStack>
+                <FormControl id="username" isRequired>
+                    <FormLabel>Username</FormLabel>
+                    <Input
+                        type="text"
+                        name="username"
+                        value={userFormData.username}
+                        onChange={handleInputChange}
+                    />
                 </FormControl>
-              </Box>
-              <Box>
-                <FormControl id="lastName" isRequired>
-                  <FormLabel>Last Name</FormLabel>
-                  <Input type="text" />
+                <FormControl id="email" isRequired>
+                <FormLabel>Email address</FormLabel>
+                <Input 
+                    type="email" 
+                    name="email"
+                    value={userFormData.email}
+                    onChange={handleInputChange}
+                    />
                 </FormControl>
-              </Box>
-            </HStack>
-            <FormControl id="email" isRequired>
-              <FormLabel>Email address</FormLabel>
-              <Input type="email" />
-            </FormControl>
-            <FormControl id="password" isRequired>
-              <FormLabel>Password</FormLabel>
-              <InputGroup>
-                <Input type={showPassword ? 'text' : 'password'} />
-                <InputRightElement h={'full'}>
-                  <Button
-                    variant={'ghost'}
-                    onClick={() =>
-                      setShowPassword((showPassword) => !showPassword)
-                    }>
-                    {showPassword ? <ViewIcon /> : <ViewOffIcon />}
-                  </Button>
-                </InputRightElement>
-              </InputGroup>
-            </FormControl>
-            <Stack spacing={10} pt={2}>
-              <Button
-                loadingText="Submitting"
-                size="lg"
-                bg={'blue.400'}
-                color={'white'}
-                _hover={{
-                  bg: 'blue.500',
-                }}>
-                Sign up
-              </Button>
-            </Stack>
-            <Stack pt={6}>
-            <Text align={'center'}>
-                Already a user? <RouterLink to="/login"><Link color={'blue.400'} to="/login">Login</Link></RouterLink>
-              </Text>
-            </Stack>
+                <FormControl id="password" isRequired>
+                <FormLabel>Password</FormLabel>
+                <InputGroup>
+                    <Input 
+                        type={showPassword ? 'text' : 'password'} 
+                        name="password"
+                        value={userFormData.password}
+                        onChange={handleInputChange}
+                        />
+                    <InputRightElement h={'full'}>
+                    <Button
+                        variant={'ghost'}
+                        onClick={() =>
+                        setShowPassword((showPassword) => !showPassword)
+                        }>
+                        {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                    </Button>
+                    </InputRightElement>
+                </InputGroup>
+                </FormControl>
+                <Stack spacing={10} pt={2}>
+                <Button
+                    loadingText="Submitting"
+                    size="lg"
+                    bg={'blue.400'}
+                    color={'white'}
+                    _hover={{
+                    bg: 'blue.500',
+                    }}
+                    type="submit">
+                    Sign up
+                </Button>
+                </Stack>
+                <Stack pt={6}>
+                <Text align={'center'}>
+                    Already a user? <RouterLink to="/login"><Link color={'blue.400'} to="/login">Login</Link></RouterLink>
+                </Text>
+                </Stack>
+            </form>
           </Stack>
         </Box>
       </Stack>

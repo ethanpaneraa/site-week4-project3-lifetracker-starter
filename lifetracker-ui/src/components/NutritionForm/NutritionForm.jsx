@@ -10,6 +10,7 @@ import {
     Input,
     Select,
     Button,
+    Heading
   } from '@chakra-ui/react';
 
 
@@ -67,9 +68,25 @@ const NutritionForm = ({ user }) => {
     <Flex
       minH={'100vh'}
       align={'center'}
-      justify={'center'}
-      bg={'gray.50'}>
+    //   justify={'center'}
+      bg={'gray.50'}
+      direction="column"
+      >
+     <Flex
+            bg="primary.500"
+            color="white"
+            width="100%"
+            py={4}
+            align="center"
+            justify="center"
+            padding="75px"
+          >
+            <Heading as="h1" size="xl">
+              Create Nutrition Item
+            </Heading>
+          </Flex>
       <Box
+        margin="75px"
         rounded={'lg'}
         bg={'white'}
         boxShadow={'lg'}
@@ -129,14 +146,20 @@ const NutritionForm = ({ user }) => {
             />
           </FormControl>
 
-          <Button
-            type="submit"
-            mt={4}
-            colorScheme="blue"
-            size="lg"
-            isFullWidth>
-            Add Nutrition Item
-          </Button>
+          <Flex
+            direction="column"
+            align="center"
+            justify="center"
+          >
+            <Button
+                type="submit"
+                mt={4}
+                colorScheme="blue"
+                size="lg"
+                isFullWidth>
+                Add Nutrition Item
+            </Button>
+          </Flex>
         </form>
       </Box>
     </Flex>

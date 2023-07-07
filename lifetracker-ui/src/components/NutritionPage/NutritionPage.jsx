@@ -59,9 +59,14 @@ const NutritionPage = ({ user }) => {
                     <NutritionCard key={nutrition.id} nutrition={nutrition} />
                 ))
                 ) : (
-                <Heading as="h2" size="md">
-                    No Nutrition Data
-                </Heading>
+                <Flex
+                    align="center"
+                    justify="center"
+                >
+                    <Heading as="h2" size="md">
+                        No Nutrition Data
+                    </Heading>
+                </Flex>
                 )}
             </Stack>
           </Flex>

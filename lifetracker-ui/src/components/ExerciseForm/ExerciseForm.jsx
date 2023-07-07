@@ -1,91 +1,143 @@
-import React from "react";
-import { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom"; 
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import {
+  Flex,
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  Select,
+  Button,
+  Heading,
+} from '@chakra-ui/react';
+
 const ExerciseForm = ({ user }) => {
+  const navigate = useNavigate();
+  const [newExerciseData, setNewExerciseData] = useState({
+    category: '',
+    name: '',
+    duration: 0,
+    intensity: 0,
+  });
 
-    const navigate = useNavigate();
-    const [newExerciseData, setNewExerciseData] = useState({
-        category: "", 
-        name: "", 
-        duration: 0,
-        intensity: 0,
-    });
+  const handleNewExerciseInputChange = (event) => {
+    const { name, value } = event.target;
+    setNewExerciseData((prevNewExerciseData) => ({
+      ...prevNewExerciseData,
+      [name]: value,
+    }));
+  };
 
-    const handleNewExerciseInputChange = (event) => {
-        const { name, value } = event.target;
-        setNewExerciseData((prevNewExerciseData) => ({
-            ...prevNewExerciseData,
-            [name]: value,
-        })); 
-
-        console.log("newExerciseData:", newExerciseData)
+  const handleAddExerciseFormSubmit = (event) => {
+    event.preventDefault();
+    const { category, name, duration, intensity } = newExerciseData;
+    const exerciseInfo = {
+      category,
+      name,
+      duration,
+      intensity,
     };
 
-    const handleAddExerciseFormSubmit = (event) => {
-        event.preventDefault(); 
-        const category = newExerciseData.category;
-        const name = newExerciseData.name;
-        const duration = newExerciseData.duration;
-        const intensity = newExerciseData.intensity;
-        const exerciseInfo = {
-            category: category,
-            name: name,
-            duration: duration,
-            intensity: intensity,
-        };
+    const params = {
+      exerciseInfo,
+      userID: user.id,
+    };
 
-        const params = {
-            exerciseInfo: exerciseInfo,
-            userID: user.id,
-        };
+    axios
+      .post('http://localhost:3001/exercise/create', params)
+      .then((response) => {
+        console.log('Successfully posted into the database!');
+        navigate('/exercise');
+      });
+  };
 
-        axios.post("http://localhost:3001/exercise/create", params)
-        .then((response) => {
-            console.log("Successfully posted into the database!");
-            navigate("/exercise");
-        }); 
-    }
-
-    return (
-        <div>
-            <form onSubmit={handleAddExerciseFormSubmit}>
-                <label htmlFor="name">Name:</label>
-                <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    value={newExerciseData.name}
-                    onChange={handleNewExerciseInputChange}
-                />
-                <label htmlFor="category">Category:</label>
-                <select name="category" id="category" value={newExerciseData.category} onChange={handleNewExerciseInputChange}>
-                    <option value="" selected disabled hidden></option>
-                    <option value="cardio">Cardio</option>
-                    <option value="strength">Strength</option>
-                    <option value="flexibility">Flexibility</option>
-                    <option value="balance">Balance</option>
-                </select>
-                <label htmlFor="duration">Duration:</label>
-                <input
-                    type="number"
-                    name="duration"
-                    id="duration"
-                    value={newExerciseData.duration}
-                    onChange={handleNewExerciseInputChange}
-                />
-                <label htmlFor="intensity">Intensity:</label>
-                <input
-                    type="number"
-                    name="intensity"
-                    id="intensity"
-                    value={newExerciseData.intensity}
-                    onChange={handleNewExerciseInputChange}
-                />
-                <button type="submit">Add Exercise Item</button>
-            </form>
-        </div>
-    );
+  return (
+    <Flex
+      minH={'100vh'}
+      align={'center'}
+      bg={'gray.50'}
+      direction="column"
+    >
+      <Flex
+        bg="#CD5C5C"
+        color="white"
+        width="100%"
+        py={4}
+        align="center"
+        justify="center"
+        padding="75px"
+      >
+        <Heading as="h1" size="xl">
+          Add Exercise Item
+        </Heading>
+      </Flex>
+      <Box
+        margin="75px"
+        rounded={'lg'}
+        bg={'white'}
+        boxShadow={'lg'}
+        p={8}
+        maxW={'md'}
+        w={'full'}
+      >
+        <form onSubmit={handleAddExerciseFormSubmit}>
+          <FormControl id="name" isRequired>
+            <FormLabel>Name:</FormLabel>
+            <Input
+              type="text"
+              name="name"
+              value={newExerciseData.name}
+              onChange={handleNewExerciseInputChange}
+            />
+          </FormControl>
+          <FormControl id="category" isRequired>
+            <FormLabel>Category:</FormLabel>
+            <Select
+              name="category"
+              value={newExerciseData.category}
+              onChange={handleNewExerciseInputChange}
+              placeholder="Select a category"
+            >
+              <option value="cardio">Cardio</option>
+              <option value="strength">Strength</option>
+              <option value="flexibility">Flexibility</option>
+              <option value="balance">Balance</option>
+            </Select>
+          </FormControl>
+          <FormControl id="duration" isRequired>
+            <FormLabel>Duration:</FormLabel>
+            <Input
+              type="number"
+              name="duration"
+              value={newExerciseData.duration}
+              onChange={handleNewExerciseInputChange}
+            />
+          </FormControl>
+          <FormControl id="intensity" isRequired>
+            <FormLabel>Intensity:</FormLabel>
+            <Input
+              type="number"
+              name="intensity"
+              value={newExerciseData.intensity}
+              onChange={handleNewExerciseInputChange}
+            />
+          </FormControl>
+          <Flex direction="column" align="center" justify="center">
+            <Button
+              type="submit"
+              mt={4}
+              colorScheme="blue"
+              size="lg"
+              isFullWidth
+            >
+              Add Exercise Item
+            </Button>
+          </Flex>
+        </form>
+      </Box>
+    </Flex>
+  );
 };
 
-export default ExerciseForm; 
+export default ExerciseForm;

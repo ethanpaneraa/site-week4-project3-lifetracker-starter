@@ -2,6 +2,17 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {
+    Flex,
+    Box,
+    FormControl,
+    FormLabel,
+    Input,
+    Select,
+    Button,
+  } from '@chakra-ui/react';
+
+
 const NutritionForm = ({ user }) => {
 
     const navigate = useNavigate();
@@ -52,56 +63,84 @@ const NutritionForm = ({ user }) => {
         })
     }
 
-    return (
-        <div>
-            <form onSubmit={handleAddNutritionFormSubmit}>
-                <label htmlFor="name">Name:</label>
-                <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    value={newNutritionData.name}
-                    onChange={handleNewNutritionInputChange}
-                />
-                <label htmlFor="category">Category:</label>
-                <select onChange={handleNewNutritionInputChange}>
-                    <option value="default" selected disabled hidden>Select a category</option>
-                    <option value="Fruit" id="category">Fruit</option>
-                    <option value="Vegetable">Vegetable</option>
-                    <option value="Grain">Grain</option>
-                    <option value="Protein">Protein</option>
-                    <option value="Dairy">Dairy</option>
-                    <option value="Fat">Fat</option>
-                </select>
-                <label htmlFor="calories">Calories:</label>
-                <input
-                    type="number"
-                    name="calories"
-                    id="calories"
-                    value={newNutritionData.calories}
-                    onChange={handleNewNutritionInputChange}
-                />
-                <label htmlFor="quantity">Quantity:</label>
-                <input
-                    type="number"
-                    name="quantity"
-                    id="quantity"
-                    value={newNutritionData.quantity}
-                    onChange={handleNewNutritionInputChange}
-                />
-                <label htmlFor="imageUrl">Image URL:</label>
-                <input
-                    type="text"
-                    name="imageUrl"
-                    id="imageUrl"
-                    value={newNutritionData.imageUrl}
-                    onChange={handleNewNutritionInputChange}
-                />
+     return (
+    <Flex
+      minH={'100vh'}
+      align={'center'}
+      justify={'center'}
+      bg={'gray.50'}>
+      <Box
+        rounded={'lg'}
+        bg={'white'}
+        boxShadow={'lg'}
+        p={8}
+        maxW={'md'}
+        w={'full'}>
+        <form onSubmit={handleAddNutritionFormSubmit}>
+          <FormControl id="name" isRequired>
+            <FormLabel>Name:</FormLabel>
+            <Input
+              type="text"
+              name="name"
+              value={newNutritionData.name}
+              onChange={handleNewNutritionInputChange}
+            />
+          </FormControl>
+          <FormControl id="category" isRequired>
+            <FormLabel>Category:</FormLabel>
+            <Select
+              name="category"
+              value={newNutritionData.category}
+              onChange={handleNewNutritionInputChange}
+              placeholder="Select a category">
+              <option value="Fruit">Fruit</option>
+              <option value="Vegetable">Vegetable</option>
+              <option value="Grain">Grain</option>
+              <option value="Protein">Protein</option>
+              <option value="Dairy">Dairy</option>
+              <option value="Fat">Fat</option>
+            </Select>
+          </FormControl>
+          <FormControl id="calories" isRequired>
+            <FormLabel>Calories:</FormLabel>
+            <Input
+              type="number"
+              name="calories"
+              value={newNutritionData.calories}
+              onChange={handleNewNutritionInputChange}
+            />
+          </FormControl>
+          <FormControl id="quantity" isRequired>
+            <FormLabel>Quantity:</FormLabel>
+            <Input
+              type="number"
+              name="quantity"
+              value={newNutritionData.quantity}
+              onChange={handleNewNutritionInputChange}
+            />
+          </FormControl>
+          <FormControl id="imageUrl" isRequired>
+            <FormLabel>Image URL:</FormLabel>
+            <Input
+              type="text"
+              name="imageUrl"
+              value={newNutritionData.imageUrl}
+              onChange={handleNewNutritionInputChange}
+            />
+          </FormControl>
 
-                <button type="submit">Add Nutrition Item</button>
-            </form>
-        </div>
-    );
+          <Button
+            type="submit"
+            mt={4}
+            colorScheme="blue"
+            size="lg"
+            isFullWidth>
+            Add Nutrition Item
+          </Button>
+        </form>
+      </Box>
+    </Flex>
+  );
 };
 
 export default NutritionForm; 

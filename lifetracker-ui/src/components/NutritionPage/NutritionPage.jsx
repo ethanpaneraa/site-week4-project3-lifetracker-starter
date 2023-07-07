@@ -1,10 +1,9 @@
-import React from "react";
-import axios from "axios";
 import { useState, useEffect } from "react";
+import axios from "axios";
+import { Link as RouterLink } from "react-router-dom";
 import NutritionForm from "../NutritionForm/NutritionForm";
-import { Link } from "react-router-dom";
 import NutritionCard from "../NutritionCard/NutritionCard";
-import "./NutritionPage.css";
+import { Link, Heading, Stack, Flex, Button } from "@chakra-ui/react";
 
 const NutritionPage = ({ user }) => {
 
@@ -23,20 +22,51 @@ const NutritionPage = ({ user }) => {
 
     console.log("user in Nutrition Page:", user); 
     return (
-        <div>
-            NutritionPage
-            <Link to="/nutrition/create">Create Nutrition Item</Link>
-            {nutritionData ? (
-                nutritionData.map((nutrition) => {
-                    return (
-                        <NutritionCard 
-                            key={nutrition.id}
-                            nutrition={nutrition}
-                        />
-                    )
-                })) : (<h2>No Nutrition Data</h2>)}
-        </div>
-    );
+        <Flex
+          align="center"
+        //   justify="center"
+          minH="100vh"
+          direction="column"
+          bg="gray.50"
+        >
+          <Flex
+            bg="primary.500"
+            color="white"
+            width="100%"
+            py={4}
+            align="center"
+            justify="center"
+            padding="75px"
+          >
+            <Heading as="h1" size="xl">
+              Nutrition
+            </Heading>
+          </Flex>
+          <Flex
+            align="center"
+            justify="center">
+            <Stack spacing={4} mt={4} maxW="md" width="100%">
+                <Flex
+                    align="center"
+                    justify="center"
+                    >
+                    <Link as={RouterLink} to="/nutrition/create">
+                    <Button>Create Nutrition Item</Button>
+                    </Link>
+                </Flex>
+                {nutritionData.length > 0 ? (
+                nutritionData.map((nutrition) => (
+                    <NutritionCard key={nutrition.id} nutrition={nutrition} />
+                ))
+                ) : (
+                <Heading as="h2" size="md">
+                    No Nutrition Data
+                </Heading>
+                )}
+            </Stack>
+          </Flex>
+        </Flex>
+      );
 };
 
 export default NutritionPage; 

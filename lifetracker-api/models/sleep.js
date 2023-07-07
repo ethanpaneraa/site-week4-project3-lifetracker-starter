@@ -22,6 +22,7 @@ class Sleep {
 
     static async createSleep(sleep, userID) {
 
+        sleep = sleep.sleepInfo;
         const requiredFields = ["start_time", "end_time"];
 
         requiredFields.forEach((field) => {

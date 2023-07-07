@@ -2,7 +2,7 @@ import React from "react";
 import "./ActivityPage.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Box, Text, Flex, HStack, Heading } from '@chakra-ui/react';
+import { Box, Text, Flex, HStack, Heading, Image } from '@chakra-ui/react';
 const ActivityPage = ({ user }) => {
 
     const [activityData, setActivityData] = useState([]);

@@ -22,7 +22,7 @@ function getDatabaseUri() {
     const databasePort = process.env.DATABASE_PORT || 5432;
     const databaseName = process.env.DATABASE_NAME || "lifetracker";
 
-    return process.env.DATABASE_URL || `postgresql://${databaseUser}:${databasePassword}@${databaseHost}:${databasePort}/${databaseName}`;
+    return `postgres://lifetrackerserver_user:LN9vXZRSBmV52Glgz99KZ41qOn1ypeK0@dpg-cikbrhp5rnuvtgv0tu8g-a/lifetrackerserver`;
 }
 
 

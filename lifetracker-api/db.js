@@ -8,6 +8,8 @@ const database = new Client({
     connectionString: getDatabaseUri()
 }); 
 
+
+
 // Connect to the database
 database.connect((err) => {
 

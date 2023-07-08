@@ -21,6 +21,7 @@ router.get("/:userID", async (req, res, next) => {
         return res.status(200).json({ nutrition });
     } catch (error) {
         next(error);
+         console.log("im here"); 
     }
 })
 

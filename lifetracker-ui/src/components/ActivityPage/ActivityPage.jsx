@@ -8,7 +8,7 @@ const ActivityPage = ({ user }) => {
     const [activityData, setActivityData] = useState([]);
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/activity/${user.id}`)
+        axios.get(`https://lifetracker-server-deployed.onrender.com/activity/${user.id}`)
         .then((response) => {
             setActivityData(response.data);
         })

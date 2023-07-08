@@ -20,16 +20,7 @@ import {
     Stack,
     Heading,
     Button as ChakraButton,
-  } from '@chakra-ui/react';
-  import {
-    HamburgerIcon,
-    CloseIcon,
-    ChevronDownIcon,
-    ChevronRightIcon,
-    AddIcon
-  } from '@chakra-ui/icons';
-import { px } from "framer-motion";
-  
+  } from '@chakra-ui/react';  
 
 
 const NavBar = ({ isUserLoggedIn, setUser, setIsUserLoggedIn }) => {

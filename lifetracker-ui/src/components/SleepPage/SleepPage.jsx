@@ -9,7 +9,7 @@ const SleepPage = ({ user }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/sleep/${user.id}`)
+      .get(`https://lifetracker-server-deployed.onrender.com/sleep/${user.id}`)
       .then((response) => {
         setSleepData(response.data.sleep);
       })

@@ -57,7 +57,7 @@ const NutritionForm = ({ user }) => {
             userID: user.id,
         }; 
 
-        axios.post("http://localhost:3001/nutrition/create", params)
+        axios.post("https://lifetracker-server-deployed.onrender.com/nutrition/create", params)
         .then((response) => {
             console.log("Successfully posted into the database!");
             navigate("/nutrition");

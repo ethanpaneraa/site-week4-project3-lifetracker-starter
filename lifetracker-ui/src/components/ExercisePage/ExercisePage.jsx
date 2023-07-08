@@ -9,7 +9,7 @@ const ExercisePage = ({ user }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/exercise/${user.id}`)
+      .get(`https://lifetracker-server-deployed.onrender.com/exercise/${user.id}`)
       .then((response) => {
         setExerciseData(response.data.allExercises);
       })

@@ -45,7 +45,7 @@ const ExerciseForm = ({ user }) => {
     };
 
     axios
-      .post('http://localhost:3001/exercise/create', params)
+      .post('https://lifetracker-server-deployed.onrender.com/exercise/create', params)
       .then((response) => {
         console.log('Successfully posted into the database!');
         navigate('/exercise');

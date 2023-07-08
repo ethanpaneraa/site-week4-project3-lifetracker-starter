@@ -10,7 +10,7 @@ const NutritionPage = ({ user }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/nutrition/${user.id}`)
+      .get(`https://lifetracker-server-deployed.onrender.com/nutrition/${user.id}`)
       .then((response) => {
         console.log("response.data:", response.data);
         setNutritionData(response.data.nutrition);

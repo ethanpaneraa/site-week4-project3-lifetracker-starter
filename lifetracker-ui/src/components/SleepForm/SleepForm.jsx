@@ -41,7 +41,7 @@ const SleepForm = ({ user }) => {
     };
 
     axios
-      .post('http://localhost:3001/sleep/create', params)
+      .post('https://lifetracker-server-deployed.onrender.com/sleep/create', params)
       .then((response) => {
         console.log('Successfully posted into the database!');
         navigate('/sleep');

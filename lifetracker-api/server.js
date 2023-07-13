@@ -34,6 +34,14 @@ app.use("/", (req, res, next) => {
     return res.status(200).json({ ping: "pong" });
 })
 
+app.get("/*", function (req, res) {
+    res.sendFile(path.join(__dirname, "dist/index.html"), function (err) {
+      if (err) {
+        res.status(500).send(err);
+      }
+    });
+  });
+
 // basic error handling route
 app.use((req, res, next) => {
     return next(new NotFoundError());

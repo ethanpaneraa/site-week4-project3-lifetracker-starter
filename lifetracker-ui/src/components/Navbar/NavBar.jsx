@@ -124,7 +124,7 @@ const NavBar = ({ isUserLoggedIn, setUser, setIsUserLoggedIn }) => {
                         size={'sm'}
                         mr={4}
                         onClick={() => {
-                            window.location.href = "http://localhost:5173/";
+                            window.location.href = "https://lifetracker-frontend-deployed.onrender.com/";
                             handleLogoutUser();
                         }}  >
                 Log Out

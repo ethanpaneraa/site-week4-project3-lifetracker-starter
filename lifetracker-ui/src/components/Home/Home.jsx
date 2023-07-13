@@ -834,7 +834,7 @@ return (
     <Container maxW={'5xl'}>
       <Stack
         textAlign={'center'}
-        align={'center'}
+        align={"center"}
         spacing={{ base: 8, md: 10 }}
         py={{ base: 20, md: 28 }}>
         <Heading

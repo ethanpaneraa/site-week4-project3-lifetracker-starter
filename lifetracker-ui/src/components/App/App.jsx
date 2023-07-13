@@ -74,8 +74,8 @@ function App() {
                 <Route path="/sleep/create" element={!isUserLoggedIn ? (<UnauthorizedPage />) : (<SleepForm user={user} />)}  />
                 <Route path="/exercise" element={!isUserLoggedIn ? (<UnauthorizedPage />) : (<ExercisePage user={user} />)} />
                 <Route path="/exercise/create" element={!isUserLoggedIn ? (<UnauthorizedPage />) : (<ExerciseForm user={user} />)}  />
-                <Route path="https://lifetracker-ui-hxk7.onrender.com" element={<Home />} />
-                <Route path="*" element={<PageNotFound />} />
+                <Route path="/" element={<Home />} />
+                <Route element={<PageNotFound />} />
               </Routes>
             </div>
           </main>

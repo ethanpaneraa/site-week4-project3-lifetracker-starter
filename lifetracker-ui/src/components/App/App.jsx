@@ -75,7 +75,7 @@ function App() {
                 <Route path="/exercise" element={!isUserLoggedIn ? (<UnauthorizedPage />) : (<ExercisePage user={user} />)} />
                 <Route path="/exercise/create" element={!isUserLoggedIn ? (<UnauthorizedPage />) : (<ExerciseForm user={user} />)}  />
                 <Route path="/" element={<Home />} />
-                <Route element={<PageNotFound />} />
+                <Route path="*" element={<PageNotFound />} />
               </Routes>
             </div>
           </main>

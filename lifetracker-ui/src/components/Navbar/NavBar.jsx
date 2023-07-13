@@ -38,7 +38,9 @@ const NavBar = ({ isUserLoggedIn, setUser, setIsUserLoggedIn }) => {
             <Box bg={useColorModeValue("#edf2f6")} p="20px" >
                 <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
                     <HStack spacing="20px" gap="7px" alignItems={'center'}>
-                        <Heading as="h1">LifeTracker</Heading>
+                        <RouteLink to="/">
+                            <Heading>LifeTracker</Heading>
+                        </RouteLink>
                         {isUserLoggedIn && (
                             <HStack as={"nav"} spacing={4} display={{base:"none", md:"flex"}}>
                             <Link 
